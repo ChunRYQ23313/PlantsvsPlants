@@ -15,7 +15,7 @@ public:
 	{
 		std::cout << "进入游戏局内游戏场景" << std::endl;
 	}
-	void on_update()
+	void on_update(int delta)
 	{
 		std::cout << "游戏正在运行..." << std::endl;
 	}

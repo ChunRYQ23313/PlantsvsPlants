@@ -8,6 +8,7 @@
 #include"selector_scene.h"
 #include"util.h"
 #include"atlas.h"
+#include"animation.h"
 
 #pragma comment(lib,"Winmm.lib")
 
@@ -143,32 +144,14 @@ void load_game_resources()
 
 	atlas_sunflower_idle_right.load_from_file(_T("resources/sunflower_idle_%d.png"), 8);
 	flip_atlas(atlas_sunflower_idle_right, atlas_sunflower_idle_left);
-	atlas_sunflower_run_right.load_from_file(_T("resources/sunflower__run_%d.png"), 5);
-	flip_atlas(atlas_sunflower_run_right, atlas_sunflower_run_left);
+	atlas_sunflower_run_right.load_from_file(_T("resources/sunflower_run_%d.png"), 5);
+	flip_atlas(atlas_sunflower_run_right,atlas_sunflower_run_left);
 	atlas_sunflower_attack_ex_right.load_from_file(_T("resources/sunflower_attack_ex_%d.png"), 9);
 	flip_atlas(atlas_sunflower_attack_ex_right, atlas_sunflower_attack_ex_left);
 	atlas_sunflower_die_right.load_from_file(_T("resources/sunflower_die_%d.png"), 2);
 	flip_atlas(atlas_sunflower_die_right, atlas_sunflower_die_left);
 
-	loadimage(&img_pea, _T("resources/pea.png"));
-	atlas_pea_break.load_from_file(_T("resources/pea_break_%d.png"), 3);
-	atlas_sun.load_from_file(_T("resources/sun_%d.png"), 5);
-	atlas_sun_explode.load_from_file(_T("resources/sun_explode_%d.png"), 5);
-	atlas_sun_ex.load_from_file(_T("resources/sun_ex_%d.png"), 5);
-	atlas_sun_ex_explode.load_from_file(_T("resources/sun_ex_explode_%d.png"), 5);
-	atlas_sun_text.load_from_file(_T("resources/sun_text_%d.png"), 6);
-
-	atlas_run_effect.load_from_file(_T("resources/run_effect_%d.png"), 4);
-	atlas_jump_effect.load_from_file(_T("resources/jump_effect_%d.png"), 5);
-	atlas_land_effect.load_from_file(_T("resources/land_effect_%d.png"), 2);
-
-	loadimage(&img_1P_winnner, _T("resources/1P_winner.png"));
-	loadimage(&img_2P_winnner, _T("resources/2P_winner.png"));
-	loadimage(&img_winnner_bar, _T("resources/winnner_bar.png"));
-
-	loadimage(&img_avatar_peashooter, _T("resource/avatar_peashooter.png"));
-	loadimage(&img_avatar_sunflower, _T("resource/avatar_sunflower.png"));
-
+	
 	mciSendString(_T("open resources/bgm_game.mp3 alias bgm_game"), NULL, 0, NULL);
 	mciSendString(_T("open resources/bgm_menu.mp3 alias bgm_menu"), NULL, 0, NULL);
 	mciSendString(_T("open resources/pea_break_1.mp3 alias pea_break_1"), NULL, 0, NULL);
@@ -219,8 +202,11 @@ int main()
 			scene_manager.on_input(msg);
 		}
 
-		
-		scene_manager.on_update();
+		static DWORD last_tick_time = GetTickCount();
+		DWORD current_tick_time = GetTickCount();
+		DWORD delta_tick = current_tick_time - last_tick_time;
+		scene_manager.on_update(delta_tick);
+		last_tick_time = current_tick_time;
 		
 
 		cleardevice();

@@ -2,9 +2,11 @@
 #include"Scene.h"
 #include<iostream>
 #include"scene_manager.h"
-
+#include"animation.h"
 
 extern SceneManager scene_manager;
+
+extern Atlas atlas_peashooter_run_right;
 
 class MenuScene :public Scene  //MenuScene类继承自Scene基类
 {
@@ -14,15 +16,23 @@ public:
 
 	void on_enter()
 	{
-		std::cout << "1" << std::endl;
+		animation_peashooter_run_right.set_atlas(&atlas_peashooter_run_right);
+		animation_peashooter_run_right.set_interval(300);
+		animation_peashooter_run_right.set_loop(true);
+		animation_peashooter_run_right.set_callback(
+			[]()
+			{
+				scene_manager.switch_to(SceneManager::SceneType::Game);
+			}
+	        );
 	}
-	void on_update()
+	void on_update(int delta)
 	{
-		std::cout << "主菜单正在运行..." << std::endl;
+		animation_peashooter_run_right.on_update(delta);
 	}
 	void on_draw()
 	{
-		outtextxy(10, 10, _T("主菜单绘图内容"));
+		animation_peashooter_run_right.on_draw(100, 100);
 	}
 	void on_input(const ExMessage& msg)
 	{
@@ -37,5 +47,5 @@ public:
 	}
 
 private:
-	
+	Animation animation_peashooter_run_right;
 };
