@@ -1,6 +1,6 @@
 #pragma once
 #include"scene.h"
-
+#include"camera.h"
 
 extern Scene* menu_scene;
 extern Scene* game_scene;
@@ -12,8 +12,8 @@ public:
 	enum class SceneType
 	{
 		Menu,
-		Game,
-		Selector
+		Selector,
+		Game
 	};
 
 
@@ -36,11 +36,11 @@ public:
 		case SceneType::Menu:
 			current_scene = menu_scene;
 			break;
-		case SceneType::Game:
-			current_scene = game_scene;
-			break;
 		case SceneType::Selector:
 			current_scene = selector_scene;
+			break;
+		case SceneType::Game:
+			current_scene = game_scene;
 			break;
 		default:
 			break;
@@ -52,9 +52,9 @@ public:
 	{
 		current_scene->on_update(delta);
 	}
-	void on_draw()
+	void on_draw(const Camera& camera)
 	{
-		current_scene->on_draw();
+		current_scene->on_draw(camera);
 	}
 	void on_input(const ExMessage& msg)
 	{
