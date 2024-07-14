@@ -122,7 +122,7 @@ void load_game_resources()
 	loadimage(&img_peashooter_selector_background_right, _T("resources/peashooter_selector_background.png"));
 	flip_image(&img_peashooter_selector_background_right, &img_peashooter_selector_background_left);
 	loadimage(&img_sunflower_selector_background_right, _T("resources/sunflower_selector_background.png"));
-	flip_image(&img_sunflower_selector_background_right, &img_sunflower_selector_background_right);
+	flip_image(&img_sunflower_selector_background_right, &img_sunflower_selector_background_left);
 
 
 	loadimage(&img_sky, _T("resources/sky.png"));
@@ -186,7 +186,8 @@ int main()
 
 	initgraph(1280, 720, EW_SHOWCONSOLE);
 
-	
+	settextstyle(28, 0, _T("IPix"));
+	setbkmode(TRANSPARENT);
 
 	BeginBatchDraw();
 
