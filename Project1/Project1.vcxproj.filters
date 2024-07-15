@@ -44,7 +44,7 @@
     <ClInclude Include="animation.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="vector.h">
+    <ClInclude Include="vector2.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
@@ -54,6 +54,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="platform.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="peashooter_player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sunflower_player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="player_id.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

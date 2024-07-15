@@ -9,6 +9,7 @@
 #include"util.h"
 #include"atlas.h"
 #include"platform.h"
+#include"player.h"
 
 
 #pragma comment(lib,"Winmm.lib")
@@ -90,6 +91,8 @@ Scene* selector_scene = nullptr;
 SceneManager scene_manager;
 Camera main_camera;
 std::vector<Platform> platform_list;
+Player* player_1 = nullptr;
+Player* player_2 = nullptr;
 
 void flip_atlas(Atlas& src, Atlas& dst)
 {
