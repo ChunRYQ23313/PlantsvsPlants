@@ -10,6 +10,7 @@
 #include"atlas.h"
 #include"platform.h"
 #include"player.h"
+#include"bullet.h"
 
 
 #pragma comment(lib,"Winmm.lib")
@@ -77,8 +78,8 @@ Atlas atlas_run_effect;
 Atlas atlas_jump_effect;
 Atlas atlas_land_effect;
 
-IMAGE img_1P_winnner;
-IMAGE img_2P_winnner;
+IMAGE img_1P_winner;
+IMAGE img_2P_winner;
 IMAGE img_winnner_bar;
 
 IMAGE img_avatar_peashooter;
@@ -90,7 +91,10 @@ Scene* selector_scene = nullptr;
 
 SceneManager scene_manager;
 Camera main_camera;
+
+std::vector<Bullet*> bullet_list;
 std::vector<Platform> platform_list;
+
 Player* player_1 = nullptr;
 Player* player_2 = nullptr;
 
@@ -159,8 +163,24 @@ void load_game_resources()
 	flip_atlas(atlas_sunflower_die_right, atlas_sunflower_die_left);
 
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
-	
+	loadimage(&img_pea, _T("resources/pea.png"));
+	atlas_pea_break.load_from_file(_T("resources/pea_break_%d.png"), 3);
+	atlas_sun.load_from_file(_T("resources/sun_&d.png"), 5);
+	atlas_sun_explode.load_from_file(_T("resources/sun_explode_%d.png"), 5);
+	atlas_sun_ex.load_from_file(_T("resources/sun_ex_&d.png"), 5);
+	atlas_sun_ex_explode.load_from_file(_T("resources/sun_ex_explode_&d.png"), 5);
+	atlas_sun_text.load_from_file(_T("resources/sun_text_&d.png"), 6);
 
+	atlas_run_effect.load_from_file(_T("resources/run_effect_%d.png"), 4);
+	atlas_jump_effect.load_from_file(_T("resources/jump_effect_%d.png"), 5);
+	atlas_land_effect.load_from_file(_T("resources/land_effect_%d.png"), 2);
+
+	loadimage(&img_1P_winner, _T("resources/1P_winner.png"));
+	loadimage(&img_2P_winner, _T("resources/2P_winner.png"));
+	loadimage(&img_winnner_bar, _T("resources/winnner_bar.png"));
+
+	loadimage(&img_avatar_peashooter, _T("resources/avatar_peashooter.png"));
+	loadimage(&img_avatar_sunflower, _T("resources/avatar_sunflower.png"));
 	
 	loadimage(&img_selector_background, _T("resources/selector_background.png"));
 	

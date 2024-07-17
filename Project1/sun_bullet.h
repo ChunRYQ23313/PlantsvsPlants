@@ -26,8 +26,8 @@ public:
 
 		IMAGE* frame_idle = animation_idle.get_frame();
 		IMAGE* frame_explode = animation_explode.get_frame();
-		explode_render_offset.x = (frame_explode->getwidth() - frame_explode->getwidth()) / 2.0f;
-		explode_render_offset.y = (frame_explode->getheight() - frame_explode->getheight()) / 2.0f;
+		explode_render_offset.x = (frame_idle->getwidth() - frame_explode->getwidth()) / 2.0f;
+		explode_render_offset.y = (frame_idle->getheight() - frame_explode->getheight()) / 2.0f;
 	}
 	~SunBullet()=default;
 
@@ -51,17 +51,12 @@ public:
 		}
 
 		if (!valid)
-		{
 			animation_explode.on_update(delta);
-		}
 		else
-		{
 			animation_idle.on_update(delta);
-		}
+
 		if (check_if_exceeds_screen())
-		{
 			can_remove = true;
-		}
 	}
 
 	void on_draw(const Camera& camera) const

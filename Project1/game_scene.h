@@ -26,8 +26,8 @@ public:
 
 	void on_enter()
 	{
-		player_1->set_positon(200, 50);
-		player_2->set_positon(976, 50);
+		player_1->set_position(200, 50);
+		player_2->set_position(976, 50);
 
 
 		pos_img_sky.x = (getwidth() - img_sky.getwidth()) / 2;
@@ -74,6 +74,11 @@ public:
 	{
 		player_1->on_update(delta);
 		player_2->on_update(delta);
+
+		main_camera.on_update(delta);
+		
+		for (Bullet* bullet : bullet_list)
+			bullet->on_update(delta);
 	}
 	void on_draw(const Camera& camera)
 	{
@@ -91,6 +96,9 @@ public:
 		}
 		player_1->on_draw(camera);
 		player_2->on_draw(camera);
+
+		for (const Bullet* bullet : bullet_list)
+			bullet->on_draw(camera);
 	}
 
 	void on_input(const ExMessage& msg)

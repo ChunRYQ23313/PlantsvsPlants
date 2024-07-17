@@ -5,7 +5,9 @@
 #include"animation.h"
 #include"player_id.h"
 #include"platform.h"
+#include"bullet.h"
 
+extern std::vector<Bullet*> bullet_list;
 extern std::vector<Platform> platform_list;
 
 class Player
@@ -14,8 +16,20 @@ public:
 	Player()
 	{
 		current_animation = &animation_idle_right;
+
+		timer_attack_cd.set_wait_time(attack_cd);
+		timer_attack_cd.set_one_shot(true);
+		timer_attack_cd.set_callback([&]()
+			{
+				can_attack = true;
+			});
 	};
 	~Player() = default;
+
+	virtual void on_attack(){}
+
+	virtual void on_attack_ex(){}
+
 
 	virtual void on_update(int delta)
 	{
@@ -33,6 +47,8 @@ public:
 			current_animation = is_facing_right ? &animation_idle_right : &animation_idle_left;
 		}
 		current_animation->on_update(delta);
+
+		timer_attack_cd.on_update(delta);
 
 		move_and_collide(delta);
 	}
@@ -61,6 +77,21 @@ public:
 				case 0x57:
 					on_jump();
 					break;
+				case 0x46:
+					if (can_attack)
+					{
+						on_attack();
+						can_attack = false;
+						timer_attack_cd.restart();
+					}
+					break;
+				case 0x47:
+					if (mp >= 100)
+					{
+						on_attack_ex();
+						mp = 0;
+					}
+					break;
 				}
 				break;
 			case PlayerID::P2:
@@ -75,9 +106,22 @@ public:
 				case VK_UP:
 					on_jump();
 					break;
+				case 0x4E:
+					if (can_attack)
+					{
+						on_attack();
+						can_attack = false;
+						timer_attack_cd.restart();
+					}
+					break;
+				case VK_OEM_2:
+					if (mp >= 100)
+					{
+						on_attack_ex();
+						mp = 0;
+					}
+					break;
 				}
-				break;
-			default:
 				break;
 			}
 			break;
@@ -106,11 +150,7 @@ public:
 					break;
 				}
 				break;
-			default:
-				break;
 			}
-			break;
-		default:
 			break;
 		}
 	}
@@ -120,24 +160,44 @@ public:
 		this->id = id;
 	}
 
-	void set_positon(float x, float y)
+	void set_position(float x, float y)
 	{
 		position.x = x, position.y = y;
 	}
 
-	void on_run(float distance)
+	const Vector2& get_position()const
 	{
+		return position;
+	}
+
+	const Vector2& get_size()const
+	{
+		return size;
+	}
+
+	virtual void on_run(float distance)
+	{
+		if (is_attacking_ex)
+		{
+			return;
+		}
+
 		position.x += distance;
 	}
 
-	void on_jump()
+	virtual void on_jump()
 	{
-		if (velocity.y != 0)
+		if (velocity.y != 0||is_attacking_ex)
 			return;
+
 		velocity.y += jump_velocity;
 	}
 
 protected:
+	int mp = 0;
+	int hp = 100;
+
+
 	Vector2 position;
 	Vector2 velocity;
 	Vector2 size;
@@ -146,6 +206,8 @@ protected:
 	Animation animation_idle_right;
 	Animation animation_run_left;
 	Animation animation_run_right;
+	Animation animation_attack_ex_left;
+	Animation animation_attack_ex_right;
 
 	Animation* current_animation = nullptr;
 
@@ -155,6 +217,8 @@ protected:
 	bool is_right_key_down = false;
 
 	bool is_facing_right = true;
+
+	bool can_attack = true;
 
 	const float run_velocity = 0.55f;
 
@@ -191,5 +255,11 @@ protected:
 			}
 		}
 	}
+
+	int attack_cd = 500;
+	bool is_attacking_ex = false;
+
+	Timer timer_attack_cd;
+
 };
 

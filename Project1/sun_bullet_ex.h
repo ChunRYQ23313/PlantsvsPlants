@@ -7,10 +7,10 @@ extern Atlas atlas_sun_ex_explode;
 
 extern Camera main_camera;
 
-class SunBulletEX :public Bullet
+class SunBulletEx :public Bullet
 {
 public:
-	SunBulletEX()
+	SunBulletEx()
 	{
 		size.x = 288, size.y = 288;
 
@@ -29,11 +29,11 @@ public:
 		explode_render_offset.x = (frame_explode->getwidth() - frame_explode->getwidth()) / 2.0f;
 		explode_render_offset.y = (frame_explode->getheight() - frame_explode->getheight()) / 2.0f;
 	}
-	~SunBulletEX() = default;
+	~SunBulletEx() = default;
 
 	void on_collide()
 	{
-		Bullet::on_collide;
+		Bullet::on_collide();
 		main_camera.shake(20, 350);
 
 		mciSendString(_T("play sun_explode_ex from 0"), NULL, 0, NULL);

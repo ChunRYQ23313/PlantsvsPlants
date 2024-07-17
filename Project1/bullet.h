@@ -26,7 +26,7 @@ public:
 		position.x = x, position.y = y;
 	}
 
-	const Vector2& set_position() const
+	const Vector2& get_position() const
 	{
 		return position;
 	}
