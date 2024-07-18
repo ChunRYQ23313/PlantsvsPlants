@@ -44,11 +44,10 @@ public:
 
 	void on_update(int delta)
 	{
-		if (valid)
-		{
+		if(valid)
 			velocity.y += gravity * delta;
 			position += velocity * (float)delta;
-		}
+		
 
 		if (!valid)
 			animation_explode.on_update(delta);
@@ -62,10 +61,14 @@ public:
 	void on_draw(const Camera& camera) const
 	{
 		if (valid)
+		{
 			animation_idle.on_draw(camera, (int)position.x, (int)position.y);
+		}
 		else
 		{
-			animation_explode.on_draw(camera, (int)(position.x + explode_render_offset.x), (int)(position.y + explode_render_offset.y));
+			animation_explode.on_draw(camera,
+				(int)(position.x + explode_render_offset.x),
+				(int)(position.y + explode_render_offset.y));
 		}
 	}
 private:

@@ -112,6 +112,8 @@ void flip_atlas(Atlas& src, Atlas& dst)
 void load_game_resources()
 {
 	AddFontResourceEx(_T("resources/IPix.ttf"), FR_PRIVATE, NULL);
+	loadimage(&img_menu_background, _T("resources/menu_background.png"));
+
 	loadimage(&img_VS, _T("resources/VS.png"));
 	loadimage(&img_1P, _T("resources/1P.png"));
 	loadimage(&img_2P, _T("resources/2P.png"));
@@ -120,8 +122,7 @@ void load_game_resources()
 	loadimage(&img_gravestone_right, _T("resources/gravestone.png"));
 	flip_image(&img_gravestone_right, &img_gravestone_left);
 	loadimage(&img_selector_tip, _T("resources/selector_tip.png"));
-
-
+	loadimage(&img_selector_background, _T("resources/selector_background.png"));
 	loadimage(&img_1P_selector_btn_idle_right, _T("resources/1P_selector_btn_idle.png"));
 	flip_image(&img_1P_selector_btn_idle_right, &img_1P_selector_btn_idle_left);
 	loadimage(&img_1P_selector_btn_down_right, _T("resources/1P_selector_btn_down.png"));
@@ -162,14 +163,14 @@ void load_game_resources()
 	atlas_sunflower_die_right.load_from_file(_T("resources/sunflower_die_%d.png"), 2);
 	flip_atlas(atlas_sunflower_die_right, atlas_sunflower_die_left);
 
-	loadimage(&img_menu_background, _T("resources/menu_background.png"));
+	
 	loadimage(&img_pea, _T("resources/pea.png"));
-	atlas_pea_break.load_from_file(_T("resources/pea_break_%d.png"), 3);
-	atlas_sun.load_from_file(_T("resources/sun_&d.png"), 5);
-	atlas_sun_explode.load_from_file(_T("resources/sun_explode_%d.png"), 5);
-	atlas_sun_ex.load_from_file(_T("resources/sun_ex_&d.png"), 5);
-	atlas_sun_ex_explode.load_from_file(_T("resources/sun_ex_explode_&d.png"), 5);
-	atlas_sun_text.load_from_file(_T("resources/sun_text_&d.png"), 6);
+	atlas_pea_break.load_from_file( _T("resources/pea_break_%d.png"), 3);
+	atlas_sun.load_from_file( _T("resources/sun_%d.png"), 5);
+	atlas_sun_explode.load_from_file( _T("resources/sun_explode_%d.png"), 5);
+	atlas_sun_ex.load_from_file( _T("resources/sun_ex_%d.png"), 5);
+	atlas_sun_ex_explode.load_from_file( _T("resources/sun_ex_explode_%d.png"), 5);
+	atlas_sun_text.load_from_file( _T("resources/sun_text_%d.png"), 6);
 
 	atlas_run_effect.load_from_file(_T("resources/run_effect_%d.png"), 4);
 	atlas_jump_effect.load_from_file(_T("resources/jump_effect_%d.png"), 5);
@@ -182,7 +183,7 @@ void load_game_resources()
 	loadimage(&img_avatar_peashooter, _T("resources/avatar_peashooter.png"));
 	loadimage(&img_avatar_sunflower, _T("resources/avatar_sunflower.png"));
 	
-	loadimage(&img_selector_background, _T("resources/selector_background.png"));
+	
 	
 
 	

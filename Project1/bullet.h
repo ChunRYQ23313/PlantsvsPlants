@@ -67,7 +67,7 @@ public:
 		return valid;
 	}
 
-	bool check_can_remove()const
+	bool check_can_remove() const
 	{
 		return can_remove;
 	}
@@ -99,7 +99,7 @@ protected:
 	bool can_remove = false;
 	std::function<void()> callback;
 	PlayerID target_id = PlayerID::P1;
-
+protected:
 	bool check_if_exceeds_screen()
 	{
 		return (position.x + size.x <= 0 || position.x >= getwidth() || 

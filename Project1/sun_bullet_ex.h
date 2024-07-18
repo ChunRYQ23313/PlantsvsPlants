@@ -26,14 +26,15 @@ public:
 
 		IMAGE* frame_idle = animation_idle.get_frame();
 		IMAGE* frame_explode = animation_explode.get_frame();
-		explode_render_offset.x = (frame_explode->getwidth() - frame_explode->getwidth()) / 2.0f;
-		explode_render_offset.y = (frame_explode->getheight() - frame_explode->getheight()) / 2.0f;
+		explode_render_offset.x = (frame_idle->getwidth() - frame_explode->getwidth()) / 2.0f;
+		explode_render_offset.y = (frame_idle->getheight() - frame_explode->getheight()) / 2.0f;
 	}
 	~SunBulletEx() = default;
 
 	void on_collide()
 	{
 		Bullet::on_collide();
+
 		main_camera.shake(20, 350);
 
 		mciSendString(_T("play sun_explode_ex from 0"), NULL, 0, NULL);

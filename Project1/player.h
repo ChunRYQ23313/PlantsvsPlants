@@ -53,7 +53,7 @@ public:
 		move_and_collide(delta);
 	}
 
-	virtual void on_draw(const Camera& camera)
+	void on_draw(const Camera& camera)
 	{
 		current_animation->on_draw(camera, (int)position.x, (int)position.y);
 	}
@@ -114,7 +114,7 @@ public:
 						timer_attack_cd.restart();
 					}
 					break;
-				case VK_OEM_2:
+				case 0x4D:
 					if (mp >= 100)
 					{
 						on_attack_ex();
@@ -165,12 +165,12 @@ public:
 		position.x = x, position.y = y;
 	}
 
-	const Vector2& get_position()const
+	const Vector2& get_position() const
 	{
 		return position;
 	}
 
-	const Vector2& get_size()const
+	const Vector2& get_size() const
 	{
 		return size;
 	}
@@ -194,7 +194,7 @@ public:
 	}
 
 protected:
-	int mp = 0;
+	int mp = 100;
 	int hp = 100;
 
 

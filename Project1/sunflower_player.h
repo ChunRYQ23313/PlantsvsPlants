@@ -10,6 +10,7 @@ extern Atlas atlas_sunflower_run_left;
 extern Atlas atlas_sunflower_run_right;
 extern Atlas atlas_sunflower_attack_ex_right;
 extern Atlas atlas_sunflower_attack_ex_left;
+extern Atlas atlas_sun_text;
 
 
 extern Player* player_1;
@@ -30,6 +31,7 @@ public:
 		animation_run_right.set_atlas(&atlas_sunflower_run_right);
 		animation_attack_ex_left.set_atlas(&atlas_sunflower_attack_ex_left);
 		animation_attack_ex_right.set_atlas(&atlas_sunflower_attack_ex_right);
+		animation_sun_text.set_atlas(&atlas_sun_text);
 		
 
 		animation_idle_left.set_interval(75);
@@ -38,6 +40,11 @@ public:
 		animation_run_right.set_interval(75);
 		animation_attack_ex_left.set_interval(100);
 		animation_attack_ex_right.set_interval(100);
+		animation_sun_text.set_interval(100);
+
+		animation_attack_ex_left.set_loop(false);
+		animation_attack_ex_right.set_loop(false);
+		animation_sun_text.set_loop(false);
 	
 
 		animation_attack_ex_left.set_callback([&]()
@@ -61,6 +68,7 @@ public:
 	void on_update(int delta)
 	{
 		Player::on_update(delta);
+
 		if (is_sun_text_visible)
 			animation_sun_text.on_update(delta);
 	}
@@ -72,7 +80,7 @@ public:
 		if (is_sun_text_visible)
 		{
 			Vector2 text_position;
-			IMAGE* frame = animation_sun_text.get_frame();
+			IMAGE* frame = animation_sun_text.get_frame(); 
 			text_position.x = position.x - (size.x - frame->getwidth()) / 2;
 			text_position.y = position.y - frame->getheight();
 			animation_sun_text.on_draw(camera, (int)text_position.x, (int)text_position.y);
@@ -103,7 +111,7 @@ public:
 	void on_attack_ex()
 	{
 		is_attacking_ex = true;
-		is_sun_text_visible = true;
+		is_sun_text_visible = true; 
 
 		animation_sun_text.reset();
 		is_facing_right ? animation_attack_ex_right.reset() : animation_attack_ex_left.reset();
@@ -114,7 +122,7 @@ public:
 		Vector2 bullet_position, bullet_velocity;
 		const Vector2& bullet_size = bullet->get_size();
 		const Vector2& target_size = target_player->get_size();
-		const Vector2& target_position = target_player-> get_position();
+		const Vector2& target_position = target_player->get_position();
 		bullet_position.x = target_position.x + (target_size.x - bullet_size.x) / 2;
 		bullet_position.y = -size.y;
 		bullet_velocity.x = 0;
@@ -134,7 +142,7 @@ public:
 
 private:
 	const float speed_sun_ex = 0.15f;
-	const Vector2 velocity_sun = { 0.25f, -0.5f };
+	const Vector2 velocity_sun = { 0.25f,-0.5f };
 	Animation animation_sun_text;
 	bool is_sun_text_visible = false;
 };
