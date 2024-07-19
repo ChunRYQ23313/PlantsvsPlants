@@ -5,6 +5,10 @@
 #include"util.h"
 #include"platform.h"
 #include"player.h"
+#include"status_bar.h"
+
+extern IMAGE* img_player_1_avatar;
+extern IMAGE* img_player_2_avatar;
 
 extern Player* player_1;
 extern Player* player_2;
@@ -26,6 +30,12 @@ public:
 
 	void on_enter()
 	{
+		status_bar_1P.set_avatar(img_player_1_avatar);
+		status_bar_2P.set_avatar(img_player_2_avatar);
+
+		status_bar_1P.set_position(235, 625);
+		status_bar_2P.set_position(675, 625);
+
 		player_1->set_position(200, 50);
 		player_2->set_position(976, 50);
 
@@ -76,9 +86,22 @@ public:
 		player_2->on_update(delta);
 
 		main_camera.on_update(delta);
+
+		bullet_list.erase(std::remove_if(bullet_list.begin(), bullet_list.end(), [](const Bullet* bullet)
+			{
+				bool deletable = bullet->check_can_remove();
+				if (deletable)delete bullet;
+				return deletable;
+			}),
+			bullet_list.end());
 		
 		for (Bullet* bullet : bullet_list)
 			bullet->on_update(delta);
+
+		status_bar_1P.set_hp(player_1->get_hp());
+		status_bar_2P.set_hp(player_2->get_hp());
+		status_bar_1P.set_mp(player_1->get_mp());
+		status_bar_2P.set_mp(player_2->get_mp());
 	}
 	void on_draw(const Camera& camera)
 	{
@@ -99,6 +122,9 @@ public:
 
 		for (const Bullet* bullet : bullet_list)
 			bullet->on_draw(camera);
+
+		status_bar_1P.on_draw();
+		status_bar_2P.on_draw();
 	}
 
 	void on_input(const ExMessage& msg)
@@ -121,7 +147,12 @@ public:
 	
 	}
 
+	
+
 private:
 	POINT pos_img_sky = { 0 };
 	POINT pos_img_hills = { 0 };
+
+	StatusBar status_bar_1P;
+	StatusBar status_bar_2P;
 };

@@ -8,6 +8,9 @@
 #include"sunflower_player.h"
 #include"player_id.h"
 
+extern IMAGE* img_player_1_avatar;
+extern IMAGE* img_player_2_avatar;
+
 extern Player* player_1;
 extern Player* player_2;
 
@@ -248,9 +251,11 @@ public:
 		{
 		case PlayerType::Peashooter:
 			player_1 = new PeashooterPlayer();
+			img_player_1_avatar = &img_avatar_peashooter;
 			break;
 		case PlayerType::Sunflower:
 			player_1 = new SunflowerPlayer();
+			img_player_1_avatar = &img_avatar_sunflower;
 			break;
 		}
 		player_1->set_id(PlayerID::P1);
@@ -259,9 +264,11 @@ public:
 		{
 		case PlayerType::Peashooter:
 			player_2 = new PeashooterPlayer();
+			img_player_2_avatar = &img_avatar_peashooter;
 			break;
 		case PlayerType::Sunflower:
 			player_2 = new SunflowerPlayer();
+			img_player_2_avatar = &img_avatar_sunflower;
 			break;
 		}
 		player_2->set_id(PlayerID::P2);
